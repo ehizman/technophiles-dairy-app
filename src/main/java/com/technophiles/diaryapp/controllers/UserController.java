@@ -24,7 +24,8 @@ public class UserController {
     public ResponseEntity<?> createNewUserAccount(@RequestBody CreateAccountRequest accountRequest){
         try{
             APIResponse response = APIResponse.builder()
-                    .message(userService.createAccount(accountRequest))
+                    .payLoad(userService.createAccount(accountRequest))
+                    .message("account created successful")
                     .isSuccessful(true)
                     .build();
             return new ResponseEntity<>(response, HttpStatus.CREATED);

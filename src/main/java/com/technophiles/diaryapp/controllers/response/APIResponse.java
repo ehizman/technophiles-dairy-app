@@ -1,5 +1,6 @@
 package com.technophiles.diaryapp.controllers.response;
 
+import com.technophiles.diaryapp.dtos.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class APIResponse {
+    private UserDTO payLoad;
     private String message;
     private boolean isSuccessful;
 }
