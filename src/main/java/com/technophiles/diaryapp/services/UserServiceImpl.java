@@ -10,6 +10,7 @@ import com.technophiles.diaryapp.models.Diary;
 import com.technophiles.diaryapp.models.User;
 import com.technophiles.diaryapp.repositories.DiaryRepository;
 import com.technophiles.diaryapp.repositories.UserRepository;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +18,16 @@ import java.util.HashSet;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
     private UserMapper userMapper = new UserMapperImpl();
-    @Autowired
-    DiaryRepository diaryRepository;
+    private DiaryRepository diaryRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, DiaryRepository diaryRepository) {
         this.userRepository = userRepository;
+        this.diaryRepository = diaryRepository;
     }
 
     @Override

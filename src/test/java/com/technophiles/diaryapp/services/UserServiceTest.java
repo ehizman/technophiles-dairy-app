@@ -86,7 +86,7 @@ class UserServiceTest {
         UserDTO userDTO = userService.createAccount(accountRequest);
         User user = userService.findUserByIdInternal(userDTO.getId());
         String diaryTitle = "diary title";
-        Diary diary = new Diary(diaryTitle, user);
+        Diary diary = new Diary(diaryTitle);
         Diary savedDiary = userService.addNewDiary(userDTO.getId(),diary);
         assertThat(savedDiary.getId()).isNotNull();
         assertThat(savedDiary.getTitle()).isEqualTo("diary title");

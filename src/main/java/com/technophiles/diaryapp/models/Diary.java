@@ -1,5 +1,6 @@
 package com.technophiles.diaryapp.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document
 @NoArgsConstructor
@@ -18,12 +21,29 @@ public class Diary {
     private String id;
     private String title;
     private LocalDateTime creationTime;
-    @DBRef
-    private User owner;
 
-    public Diary(String title, User owner) {
+    private Set<Entry> entries;
+
+
+    public Diary(String title) {
         this.title = title;
         this.creationTime = LocalDateTime.now();
-        this.owner = owner;
+        this.entries = new HashSet<>();
+    }
+
+    public Diary(String id, String title) {
+        this.id = id;
+        this.title = title;
+        this.creationTime = LocalDateTime.now();
+        this.entries = new HashSet<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Diary{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", creationTime=" + creationTime +
+                '}';
     }
 }
