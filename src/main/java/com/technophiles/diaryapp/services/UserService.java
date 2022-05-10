@@ -13,6 +13,8 @@ public interface UserService {
 
     UserDTO findUser(String id);
 
+    UserDTO findUserByEmail(String email);
+
     String updateUser(String id, UpdateUserDTO updateUserDTO);
 
     Diary addNewDiary(String userId, Diary diary);

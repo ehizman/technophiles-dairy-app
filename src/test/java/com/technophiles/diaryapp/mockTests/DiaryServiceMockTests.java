@@ -51,10 +51,10 @@ public class DiaryServiceMockTests {
         verify(userRepository, times(1)).findById("user id");
         verify(userRepository, times(1)).save(userArgumentCaptor.capture());
         User capturedUser = userArgumentCaptor.getValue();
-        assertThat(returnedDiary.getTitle()).isEqualTo("My Secret Lovers and their Exes");
+        assertThat(returnedDiary.getText()).isEqualTo("My Secret Lovers and their Exes");
         assertThat(returnedDiary.getEntries()).isEmpty();
         assertThat(capturedUser.getDiaries()).hasSize(1);
-        assertThat(new ArrayList<>(capturedUser.getDiaries()).get(0).getTitle()).isEqualTo("My Secret Lovers and their Exes");
+        assertThat(new ArrayList<>(capturedUser.getDiaries()).get(0).getText()).isEqualTo("My Secret Lovers and their Exes");
     }
 
     @Test
@@ -66,24 +66,25 @@ public class DiaryServiceMockTests {
         String expected = diaryService.updateDiary("dummy id", updateDiaryForm);
         verify(diaryRepository, times(1)).save(diaryArgumentCaptor.capture());
         Diary capturedDiary = diaryArgumentCaptor.getValue();
-        assertThat(capturedDiary.getTitle()).isEqualTo("new diary title");
+        assertThat(capturedDiary.getText()).isEqualTo("new diary title");
         assertThat(expected).isEqualTo("Diary has been updated");
     }
 
     @Test
     void testThatCanAddEntriesToDiary(){
-
         List<Entry> entries = List.of(
                 new Entry("entry one"),
                 new Entry("entry two")
         );
-        Diary diary = new Diary("diaryId", "Otunba's Will");
+        Diary diary = new Diary("diary id", "Diary title");
         when(diaryRepository.findById(anyString())).thenReturn(Optional.of(diary));
         when(diaryRepository.save(any(Diary.class))).thenReturn(diary);
-        Diary updatedDiary = diaryService.addEntries(entries, diary.getId());
+        diaryService.addEntries(entries, diary.getId());
+        verify(diaryRepository, times(1)).findById("diary id");
         verify(diaryRepository, times(1)).save(diaryArgumentCaptor.capture());
         Diary capturedDiary = diaryArgumentCaptor.getValue();
+        assertThat(capturedDiary.getId()).isEqualTo("diary id");
+        assertThat(capturedDiary.getEntries()).hasSize(2);
         assertThat(capturedDiary.getEntries()).containsAll(entries);
-        assertThat(updatedDiary.getTitle()).isEqualTo("Otunba's Will");
     }
 }

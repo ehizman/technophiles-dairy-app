@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
     private UserMapper userMapper = new UserMapperImpl();
+    @Autowired
     private DiaryRepository diaryRepository;
 
     public UserServiceImpl(UserRepository userRepository, DiaryRepository diaryRepository) {
@@ -50,6 +51,11 @@ public class UserServiceImpl implements UserService{
         return userMapper.userToUserDTO(user);
     }
 
+    @Override
+    public UserDTO findUserByEmail(String email) {
+        Optional<User> optionalUser = userRepository.findUserByEmail(email);
+        return optionalUser.map(user -> userMapper.userToUserDTO(user)).orElse(null);
+    }
 
 
     @Override
@@ -91,6 +97,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteByEmail(String email) {
         User user = userRepository.findUserByEmail(email).orElseThrow(()-> new DiaryAppApplicationException("user with not found"));
+        diaryRepository.deleteAll(user.getDiaries());
         userRepository.delete(user);
     }
 }

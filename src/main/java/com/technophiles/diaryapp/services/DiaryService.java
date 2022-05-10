@@ -13,4 +13,8 @@ public interface DiaryService {
     String updateDiary(String diaryId, UpdateDiaryForm updateDiaryForm);
 
     Diary addEntries(List<Entry> entries, String diaryId);
+
+    void deleteDiary(String id);
+
+    Diary findDiary(String id);
 }

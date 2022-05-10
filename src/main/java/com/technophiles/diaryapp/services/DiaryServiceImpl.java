@@ -40,7 +40,7 @@ public class DiaryServiceImpl implements DiaryService {
     public String updateDiary(String diaryId, UpdateDiaryForm updateDiaryForm) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow(()-> new DiaryAppApplicationException("diary does not exist"));
         if (!(updateDiaryForm.getTitle().trim().equals("") || updateDiaryForm.getTitle() == null)){
-            diary.setTitle(updateDiaryForm.getTitle());
+            diary.setText(updateDiaryForm.getTitle());
             diaryRepository.save(diary);
         }
         return "Diary has been updated";
@@ -48,8 +48,20 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     public Diary addEntries(List<Entry> entries, String diaryId) {
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow(()-> new DiaryAppApplicationException(" Diary does not exist"));
-        diary.getEntries().addAll(entries);
-        return diaryRepository.save(diary);
+       Diary diary = diaryRepository.findById(diaryId).orElseThrow(()-> new DiaryAppApplicationException("diary does not exist"));
+       diary.getEntries().addAll(entries);
+       return diaryRepository.save(diary);
+    }
+
+    @Override
+    public void deleteDiary(String id) {
+        Diary diary = diaryRepository.findById(id).orElseThrow(()-> new DiaryAppApplicationException("Diary does not exist"));
+
+        diaryRepository.delete(diary);
+    }
+
+    @Override
+    public Diary findDiary(String id) {
+        return diaryRepository.findById(id).orElse(null);
     }
 }

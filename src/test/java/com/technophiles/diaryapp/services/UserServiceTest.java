@@ -6,6 +6,7 @@ import com.technophiles.diaryapp.dtos.UserDTO;
 import com.technophiles.diaryapp.exceptions.DiaryAppApplicationException;
 import com.technophiles.diaryapp.models.Diary;
 import com.technophiles.diaryapp.models.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,10 +21,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 @SpringBootTest
+@Slf4j
 @ImportAutoConfiguration(exclude = EmbeddedMongoAutoConfiguration.class)
 class UserServiceTest {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    DiaryService diaryService;
     private  CreateAccountRequest accountRequest;
 
     @BeforeEach
@@ -89,11 +94,25 @@ class UserServiceTest {
         Diary diary = new Diary(diaryTitle);
         Diary savedDiary = userService.addNewDiary(userDTO.getId(),diary);
         assertThat(savedDiary.getId()).isNotNull();
-        assertThat(savedDiary.getTitle()).isEqualTo("diary title");
+        assertThat(savedDiary.getText()).isEqualTo("diary title");
+    }
+
+    @Test
+    void testThatCanDeleteAUserAndItsDiaries(){
+        UserDTO userDTO = userService.createAccount(accountRequest);
+        Diary diary = diaryService.createDiary("new diary", userDTO.getId());
+        userService.addNewDiary(userDTO.getId(), diary);
+        userService.deleteByEmail(userDTO.getEmail());
+        assertThatThrownBy(()->userService.findUser(userDTO.getId())).isInstanceOf(DiaryAppApplicationException.class).hasMessage("user with id does not exist");
+        log.info("Diary id --> {}", diary.getId());
+        Diary foundDiary = diaryService.findDiary(diary.getId());
+        assertThat(foundDiary).isNull();
     }
 
     @AfterEach
     void tearDown() {
-        userService.deleteByEmail("testemail@gmail.com");
+        if (userService.findUserByEmail("testemail@gmail.com") != null){
+            userService.deleteByEmail("testemail@gmail.com");
+        }
     }
 }

@@ -1,2 +1,6 @@
-/home/anina/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/DiaryAppApplicationTests.java
-/home/anina/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/services/UserServiceTest.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/mockTests/UserServiceMockTest.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/DataConfig.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/services/DiaryServiceTest.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/services/UserServiceTest.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/DiaryAppApplicationTests.java
+/home/anina/dev/IdeaProjects/technophiles-dairy-app/src/test/java/com/technophiles/diaryapp/mockTests/DiaryServiceMockTests.java

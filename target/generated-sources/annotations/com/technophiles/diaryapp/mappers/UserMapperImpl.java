@@ -1,12 +1,15 @@
 package com.technophiles.diaryapp.mappers;
 
 import com.technophiles.diaryapp.dtos.UserDTO;
+import com.technophiles.diaryapp.models.Diary;
 import com.technophiles.diaryapp.models.User;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-09T16:42:48+0100",
+    date = "2022-05-10T11:35:03+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 public class UserMapperImpl implements UserMapper {
@@ -21,6 +24,10 @@ public class UserMapperImpl implements UserMapper {
 
         userDTO.setId( user.getId() );
         userDTO.setEmail( user.getEmail() );
+        Set<Diary> set = user.getDiaries();
+        if ( set != null ) {
+            userDTO.setDiaries( new HashSet<Diary>( set ) );
+        }
 
         return userDTO;
     }
@@ -35,6 +42,10 @@ public class UserMapperImpl implements UserMapper {
 
         user.setId( userDTO.getId() );
         user.setEmail( userDTO.getEmail() );
+        Set<Diary> set = userDTO.getDiaries();
+        if ( set != null ) {
+            user.setDiaries( new HashSet<Diary>( set ) );
+        }
 
         return user;
     }

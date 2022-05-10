@@ -132,7 +132,7 @@ public class UserServiceMockTest {
         Diary savedDiary = userService.addNewDiary(userId, diary);
         verify(diaryRepository, times(1)).save(diaryArgumentCaptor.capture());
         Diary capturedValue = diaryArgumentCaptor.getValue();
-        assertThat(capturedValue.getTitle()).isEqualTo("diary title");
+        assertThat(capturedValue.getText()).isEqualTo("diary title");
         verify(userRepository, times(1)).save(userArgumentCaptor.capture());
 
         User savedUser = userArgumentCaptor.getValue();

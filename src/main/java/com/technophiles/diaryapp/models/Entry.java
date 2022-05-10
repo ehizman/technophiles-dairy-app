@@ -1,5 +1,6 @@
 package com.technophiles.diaryapp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.technophiles.diaryapp.config.EntryDeserializer;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @JsonDeserialize(using = EntryDeserializer.class)
 public class Entry {
     private String id;
+
     private String text;
     private LocalDateTime creationTime;
 

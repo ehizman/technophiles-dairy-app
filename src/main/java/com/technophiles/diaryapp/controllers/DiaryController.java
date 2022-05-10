@@ -37,11 +37,11 @@ public class DiaryController {
     * in other for Jackson to automatically deserialize a JSON object we have to
     * implement a custom Deserializer- EntryDeserializer
     * */
-    @PostMapping("/addEntries/{diaryId}")
-    public ResponseEntity<?> addNewEntries(@PathVariable("diaryId") String diaryId, @RequestBody List<Entry> entryList){
+    @PatchMapping("/addEntries/{diaryId}")
+    public ResponseEntity<?> addEntries(@PathVariable("diaryId") String diaryId, @RequestBody List<Entry> entries){
         try{
-            Diary diary = diaryService.addEntries(entryList, diaryId);
-            APIResponse apiResponse = new APIResponse(diary, "diary successfully", true);
+            Diary diary = diaryService.addEntries(entries, diaryId);
+            APIResponse apiResponse = new APIResponse(diary, "entries added successfully", true);
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (DiaryAppApplicationException exception){
             APIResponse apiResponse = APIResponse.builder()

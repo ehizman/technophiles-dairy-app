@@ -1,2 +1,6 @@
+com/technophiles/diaryapp/mockTests/DiaryServiceMockTests.class
+com/technophiles/diaryapp/DataConfig.class
 com/technophiles/diaryapp/DiaryAppApplicationTests.class
+com/technophiles/diaryapp/services/DiaryServiceTest.class
 com/technophiles/diaryapp/services/UserServiceTest.class
+com/technophiles/diaryapp/mockTests/UserServiceMockTest.class

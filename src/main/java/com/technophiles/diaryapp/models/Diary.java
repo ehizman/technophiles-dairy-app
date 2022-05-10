@@ -1,5 +1,7 @@
 package com.technophiles.diaryapp.models;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,21 +21,22 @@ import java.util.Set;
 public class Diary {
     @Id
     private String id;
-    private String title;
+
+    private String text;
     private LocalDateTime creationTime;
 
     private Set<Entry> entries;
 
 
     public Diary(String title) {
-        this.title = title;
+        this.text = title;
         this.creationTime = LocalDateTime.now();
         this.entries = new HashSet<>();
     }
 
     public Diary(String id, String title) {
         this.id = id;
-        this.title = title;
+        this.text = title;
         this.creationTime = LocalDateTime.now();
         this.entries = new HashSet<>();
     }
@@ -42,7 +45,7 @@ public class Diary {
     public String toString() {
         return "Diary{" +
                 "id='" + id + '\'' +
-                ", title='" + title + '\'' +
+                ", title='" + text + '\'' +
                 ", creationTime=" + creationTime +
                 '}';
     }
